@@ -10,7 +10,9 @@ const App: React.FC = () => {
   const [socketConnected, setSocketConnected] = useState<boolean>(false);
 
   useEffect(() => {
-    const socket = io('http://localhost:3000');
+    const backendUrl = process.env.REACT_APP_BACKEND_URL!;
+    const socket = io(backendUrl);
+    
     console.log("Attempting to connect to server...");
 
     socket.on('connect', () => {
