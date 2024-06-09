@@ -1,15 +1,20 @@
-import { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+// useWebSocket.ts
+import { useEffect, useState, useRef } from 'react';
+import io, { Socket } from 'socket.io-client';
 import User from '../models/User';
 
 const useWebSocket = (backendUrl: string) => {
   const [users, setUsers] = useState<User[]>([]);
   const [socketConnected, setSocketConnected] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
+  const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
-    const socket = io(backendUrl);
+    socketRef.current = io(backendUrl);
 
     console.log("Attempting to connect to server...");
+
+    const socket = socketRef.current;
 
     socket.on('connect', () => {
       console.log('Connected to server');
@@ -47,12 +52,25 @@ const useWebSocket = (backendUrl: string) => {
       socket.emit('newUser');
     });
 
+    socket.on('message', (data: { senderId: string; username: string; message: string; }) => {
+      console.log(`Message "${data.message}" received form ${data.username}`);
+    });
+
     return () => {
       socket.disconnect();
     };
   }, [backendUrl]);
 
-  return { users, socketConnected };
+  const sendMessage = (message: string) => {
+    if (socketRef.current && socketConnected) {
+      // Emit the message to the server
+      socketRef.current.emit('sendMessage', { message });
+    } else {
+      console.error('Socket is not connected. Message not sent.');
+    }
+  };
+
+  return { users, socketConnected, message, setMessage, sendMessage };
 };
 
 export default useWebSocket;
