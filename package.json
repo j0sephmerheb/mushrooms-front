@@ -31,12 +31,6 @@
     "start:local": "env-cmd -f src/environments/.env.local react-scripts start --port 4000",
     "build:prod": "env-cmd -f src/environments/.env.production react-scripts build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
