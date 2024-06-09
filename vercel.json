@@ -1,0 +1,6 @@
+{
+    "builds": [
+      { "src": "build:prod", "use": "@vercel/static-build" }
+    ]
+  }
+  

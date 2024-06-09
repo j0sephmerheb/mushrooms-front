@@ -33,7 +33,7 @@ const App: React.FC = () => {
 
     socket.on('userDisconnected', (data: { clientId: string }) => {
       console.log('User disconnected:', data);
-      setUsers(prevUsers => prevUsers.filter(user => user.id !== data.clientId));  // Remove the disconnected user
+      setUsers(prevUsers => prevUsers.filter(user => user.id !== data.clientId));
     });
 
     socket.on('disconnect', () => {
