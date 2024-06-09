@@ -12,10 +12,10 @@
     "@types/node": "^16.18.98",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "node-sass": "^7.0.3",
+    "node-sass": "^9.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^3.0.1",
     "typescript": "^4.9.5",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
@@ -28,7 +28,7 @@
     "eject": "react-scripts eject",
     "start:local": "env-cmd -f src/environments/.env.local react-scripts start",
     "build:prod": "env-cmd -f src/environments/.env.production react-scripts build"
-   },
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
