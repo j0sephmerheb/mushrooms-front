@@ -12,7 +12,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     <div className="user-list">
       {users.length > 0 ? (
         users.map((user, index) => (
-          <Avatar key={index} position={user.position} />
+          <Avatar key={index} username={user.username} position={user.position} />
         ))
       ) : (
         <div>No users connected</div>
