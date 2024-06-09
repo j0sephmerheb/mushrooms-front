@@ -25,8 +25,10 @@
     "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
+    "eject": "react-scripts eject",
+    "start:local": "env-cmd -f src/environments/.env.local react-scripts start",
+    "build:prod": "env-cmd -f src/environments/.env.production react-scripts build"
+   },
   "eslintConfig": {
     "extends": [
       "react-app",
