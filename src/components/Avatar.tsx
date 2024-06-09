@@ -3,7 +3,7 @@ import React from 'react';
 
 interface AvatarProps {
   username: string,
-  position: { x: number; y: number };
+  position: { x: number; y: number; z: number };
 }
 
 const Avatar: React.FC<AvatarProps> = ({ position, username }) => {
@@ -14,6 +14,7 @@ const Avatar: React.FC<AvatarProps> = ({ position, username }) => {
     >
       <img src="/assets/stickman.png" alt="Stickman Avatar" />
       <span className='username'>{ username }</span>
+      <span>{ position.x } , { position.y } , { position.z } </span>
     </div>
   );
 };

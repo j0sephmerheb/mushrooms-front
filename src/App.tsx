@@ -1,7 +1,7 @@
-// App.tsc
+// src/App.tsx
 import React from 'react';
 import './App.scss';
-import UserList from './components/UserList';
+import ThreeScene from './components/ThreeScene';
 import useWebSocket from './sockets/useWebSocket';
 
 const App: React.FC = () => {
@@ -11,7 +11,7 @@ const App: React.FC = () => {
   return (
     <div className="app">
       {socketConnected ? (
-        <UserList users={users} />
+        <ThreeScene users={users} />
       ) : (
         <div>Connecting...</div>
       )}
@@ -20,4 +20,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
