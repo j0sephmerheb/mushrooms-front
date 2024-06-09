@@ -1,0 +1,23 @@
+/* App.css */
+.app {
+  position: relative;
+}
+.avatar {
+  position: absolute;
+  width: 40px;
+  padding-bottom: 20px;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+}
+.avatar .username{
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  bottom: 0;
+  font-size: 12px;
+  line-height: 1.1;
+  text-wrap: nowrap;
+}
