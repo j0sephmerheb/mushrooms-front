@@ -6,7 +6,7 @@ import useWebSocket from './sockets/useWebSocket';
 
 const App: React.FC = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL!;
-  const { users, socketConnected, message, sendMessage } = useWebSocket(backendUrl);
+  const { users, socketConnected, message, sendMessage, username } = useWebSocket(backendUrl);
   const [inputMessage, setInputMessage] = useState<string>('');
   const [displayMessage, setDisplayMessage] = useState<{ [key: string]: string | null }>({});
 
@@ -64,6 +64,10 @@ const App: React.FC = () => {
 
           <div className='user-count'>
             Users: {users.length}
+          </div>
+
+          <div className='connected-user'>
+            Connected as: {username}
           </div>
         </div>
       ) : (

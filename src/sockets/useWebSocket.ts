@@ -9,6 +9,7 @@ const useWebSocket = (backendUrl: string) => {
   const [socketConnected, setSocketConnected] = useState<boolean>(false);
   const [message, setMessage] = useState<Message | null>(null);
   const socketRef = useRef<Socket | null>(null);
+  const [username, setUsername] = useState<string>('');
 
   useEffect(() => {
     socketRef.current = io(backendUrl);
@@ -28,15 +29,7 @@ const useWebSocket = (backendUrl: string) => {
       setUsers(data);
     });
 
-    socket.on('newUser', (data: User) => {
-      console.log('New user event received:', data);
-      setUsers(prevUsers => [...prevUsers, data]);
-    });
 
-    socket.on('userDisconnected', (data: { clientId: string }) => {
-      console.log('User disconnected:', data);
-      setUsers(prevUsers => prevUsers.filter(user => user.id !== data.clientId));
-    });
 
     socket.on('disconnect', () => {
       console.log("Disconnected from server");
@@ -54,25 +47,31 @@ const useWebSocket = (backendUrl: string) => {
     });
 
     socket.on('message', (data: Message) => {
-      console.log(`Message "${data.text}" received form ${data.senderId}`);
+      console.log(`Message "${data.text}" received from ${data.senderId}`);
       setMessage(data);
     });
+
+    // Only set the username once when the component mounts
+    if (!username) {
+      socket.on('userConnected', (data: { user: User }) => {
+        setUsername(data.user.username);
+      });
+    };
 
     return () => {
       socket.disconnect();
     };
-  }, [backendUrl]);
+  }, [backendUrl, username]);
 
   const sendMessage = (message: string) => {
     if (socketRef.current && socketConnected) {
-      // Emit the message to the server
       socketRef.current.emit('sendMessage', { message });
     } else {
       console.error('Socket is not connected. Message not sent.');
     }
   };
 
-  return { users, socketConnected, message, setMessage, sendMessage };
+  return { users, socketConnected, message, setMessage, sendMessage, username };
 };
 
 export default useWebSocket;
