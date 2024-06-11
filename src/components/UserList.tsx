@@ -2,13 +2,14 @@
 import React from 'react';
 import Avatar from './Avatar';
 import User from '../models/User';
+import Message from '../models/Message';
 
 interface UserListProps {
   users: User[];
-  message: string;
+  message: Message;
 }
 
-const UserList: React.FC<UserListProps> = ({ users }) => {
+const UserList: React.FC<UserListProps> = ({ users, message }) => {
   return (
     <div className="user-list">
       {users.length > 0 ? (
@@ -18,6 +19,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             username={user.username}
             position={user.position}
             senderId={user.id} 
+            message={message}
           />
         ))
       ) : (

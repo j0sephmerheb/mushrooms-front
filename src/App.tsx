@@ -24,6 +24,7 @@ const App: React.FC = () => {
   useEffect(() => {
     if (message) {
       // Handle message received from the server if needed
+      console.log(message);
     }
   }, [message]);
 
@@ -32,10 +33,19 @@ const App: React.FC = () => {
       {socketConnected ? (
         <div>
           <UserList users={users} message={message} />
-          <form onSubmit={handleSubmit}>
-            <input type="text" value={inputMessage} onChange={handleChange} placeholder="Type your message" />
-            <button type="submit">Send</button>
-          </form>
+
+          <div className='form'>
+            <form onSubmit={handleSubmit}>
+              <div className='input-holder '>
+                <input type="text" value={inputMessage} onChange={handleChange} placeholder="Type your message" />
+                <button type="submit">Send</button>
+              </div>
+            </form>
+          </div>
+
+          <div className='user-count'>
+            Users: {users.length}
+          </div>
         </div>
       ) : (
         <div>Connecting...</div>
