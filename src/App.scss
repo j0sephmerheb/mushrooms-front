@@ -54,7 +54,7 @@ body {
 
 .avatar {
   position: absolute;
-  width: 40px;
+  width: 32px;
   padding-bottom: 20px;
 
   img {
@@ -144,4 +144,17 @@ body {
       background: #017eba ;
     }
   }
+}
+
+.connected-user {
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  font-size: 12px;
+  line-height: 1.1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  font-weight: 500;
 }
