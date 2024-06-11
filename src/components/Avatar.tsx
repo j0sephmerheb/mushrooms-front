@@ -1,16 +1,19 @@
+// Avatar.tsx
 import React from 'react';
+import Message from '../models/Message';
+import User from '../models/User';
 
 interface AvatarProps {
-  username: string;
-  position: { x: number; y: number; z: number };
-  senderId: string;
+  user: User;
+  message: string | null; // Update the type of the message prop
 }
 
-const Avatar: React.FC<AvatarProps> = ({ position, username }) => {
+const Avatar: React.FC<AvatarProps> = ({ user, message }) => {
   return (
-    <div className="avatar" style={{ top: `${position.y}px`, left: `${position.x}px`, position: 'absolute' }}>
+    <div className="avatar" style={{ top: `${user.position.y}px`, left: `${user.position.x}px`, position: 'absolute' }}>
       <img src="/assets/stickman.png" alt="Stickman Avatar" />
-      <span className='username'>{username}</span>
+      <span className='username'>{user.username}</span>
+      {message && <span className='message'>{message}</span>} {/* Use message directly */}
     </div>
   );
 };

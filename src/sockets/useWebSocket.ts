@@ -2,11 +2,12 @@
 import { useEffect, useState, useRef } from 'react';
 import io, { Socket } from 'socket.io-client';
 import User from '../models/User';
+import Message from '../models/Message';
 
 const useWebSocket = (backendUrl: string) => {
   const [users, setUsers] = useState<User[]>([]);
   const [socketConnected, setSocketConnected] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
+  const [message, setMessage] = useState<Message | null>(null);
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
@@ -52,8 +53,9 @@ const useWebSocket = (backendUrl: string) => {
       socket.emit('newUser');
     });
 
-    socket.on('message', (data: { senderId: string; username: string; message: string; }) => {
-      console.log(`Message "${data.message}" received form ${data.username}`);
+    socket.on('message', (data: Message) => {
+      console.log(`Message "${data.text}" received form ${data.senderId}`);
+      setMessage(data);
     });
 
     return () => {

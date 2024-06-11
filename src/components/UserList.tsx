@@ -5,19 +5,18 @@ import User from '../models/User';
 
 interface UserListProps {
   users: User[];
-  message: string;
+  displayMessage: { [key: string]: string | null };
 }
 
-const UserList: React.FC<UserListProps> = ({ users }) => {
+const UserList: React.FC<UserListProps> = ({ users, displayMessage }) => {
   return (
     <div className="user-list">
       {users.length > 0 ? (
         users.map((user, index) => (
           <Avatar
             key={index}
-            username={user.username}
-            position={user.position}
-            senderId={user.id} 
+            user={user}
+            message={displayMessage[user.id]}
           />
         ))
       ) : (
