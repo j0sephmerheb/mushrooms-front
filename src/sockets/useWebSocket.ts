@@ -7,7 +7,7 @@ import Message from '../models/Message';
 const useWebSocket = (backendUrl: string) => {
   const [users, setUsers] = useState<User[]>([]);
   const [socketConnected, setSocketConnected] = useState<boolean>(false);
-  const [message, setMessage] = useState<Message>({});
+  const [message, setMessage] = useState<Message | null>(null);
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {

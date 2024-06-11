@@ -8,6 +8,7 @@ const App: React.FC = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL!;
   const { users, socketConnected, message, sendMessage } = useWebSocket(backendUrl);
   const [inputMessage, setInputMessage] = useState<string>('');
+  const [displayMessage, setDisplayMessage] = useState<{ [key: string]: string | null }>({});
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputMessage(event.target.value);
@@ -23,16 +24,34 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (message) {
-      // Handle message received from the server if needed
-      console.log(message);
+      const senderId = message.senderId as string;
+      const messageText = message.text;
+  
+      setDisplayMessage(prevState => {
+        const newState = { ...prevState };
+        if (messageText !== undefined && messageText !== null) {
+          newState[senderId] = messageText;
+        }
+        return newState;
+      });
+  
+      // Clear the message after 1 second
+      setTimeout(() => {
+        setDisplayMessage(prevState => {
+          const newState = { ...prevState };
+          delete newState[senderId];
+          return newState;
+        });
+      }, 5000);
     }
   }, [message]);
+  
 
   return (
     <div className="app">
       {socketConnected ? (
         <div>
-          <UserList users={users} message={message} />
+          <UserList users={users} displayMessage={displayMessage} />
 
           <div className='form'>
             <form onSubmit={handleSubmit}>
@@ -55,4 +74,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
